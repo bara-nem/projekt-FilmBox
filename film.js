@@ -103,4 +103,42 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+
+	{
+		id: 'paty-element',
+		nazev: 'Pátý element',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w1080/files/images/film/posters/170/554/170554570_antoy6.jpg',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Akční sci-fi Luca Bessona z budoucnosti.',
+		popis:
+			'Ve 23. století ohrožuje Zemi prastará síla zla. Jedinou obranou je legendární Pátý element, dokonalá bytost, která spolu s taxikářem Korbenem Dallasem musí zachránit lidstvo. Kultovní sci-fi film s Brucem Willisem, Millou Jovovich a Garym Oldmanem.',
+		premiera: '1997-05-07',
+	},
 ]
+
+
+// DETAIL FILMU
+
+const detailFilmuElement = document.querySelector('#detail-filmu');
+
+const idFilmu = location.hash.substring(1);
+let film;
+
+filmy.forEach((porovnavanyFilm) => {
+	if (porovnavanyFilm.id === idFilmu) {
+		film = porovnavanyFilm;
+	}
+});
+
+if (film) {
+	detailFilmuElement.querySelector('.card-title').textContent = film.nazev;
+	detailFilmuElement.querySelector('.card-text').textContent = film.popis;
+
+	const plakat = detailFilmuElement.querySelector('.img-fluid');
+	plakat.src = film.plakat.url;
+	plakat.width = film.plakat.sirka;
+	plakat.height = film.plakat.vyska;
+}
