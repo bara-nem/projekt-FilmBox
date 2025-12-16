@@ -142,3 +142,36 @@ if (film) {
 	plakat.width = film.plakat.sirka;
 	plakat.height = film.plakat.vyska;
 }
+
+
+
+// POZNÁMKA
+
+const noteForm = document.querySelector('#note-form');
+
+noteForm.addEventListener('submit', (event) => {
+	event.preventDefault();
+
+	const messageInput = document.querySelector('#message-input');
+	const termsCheckbox = document.querySelector('#terms-checkbox');
+
+	messageInput.classList.remove('is-invalid');
+	termsCheckbox.classList.remove('is-invalid');
+
+	if (messageInput.value.trim() === '') {
+		messageInput.classList.add('is-invalid');
+		messageInput.focus();
+		return;
+	}
+
+	if (!termsCheckbox.checked) {
+		termsCheckbox.classList.add('is-invalid');
+		termsCheckbox.focus();
+		return;
+	}
+
+	noteForm.innerHTML = `
+		<p class="card-text">${messageInput.value}</p>
+	`;
+});
+
