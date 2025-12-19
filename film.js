@@ -175,3 +175,53 @@ noteForm.addEventListener('submit', (event) => {
 	`;
 });
 
+// DATUM
+
+const premieraElement = document.querySelector('#premiera');
+
+if (film && premieraElement) {
+	const dnes = dayjs();
+	const datumPremiery = dayjs(film.premiera);
+
+	const hezkeDatum = datumPremiery.format('D. M. YYYY');
+	const rozdilDni = datumPremiery.diff(dnes, 'days');
+
+	let textRozdilu = '';
+
+	if (rozdilDni > 0) {
+		textRozdilu = `, což je za ${rozdilDni} dní`;
+	} else if (rozdilDni < 0) {
+		textRozdilu = `, což bylo před ${Math.abs(rozdilDni)} dny`;
+	} else {
+		textRozdilu = ', což je dnes';
+	}
+
+	premieraElement.innerHTML = `Premiéra <strong>${hezkeDatum}</strong>${textRozdilu}`;
+}
+
+
+
+// HODNOCENÍ
+
+function zvyrazniHvezdicky(pocet) {
+	const hvezdicky = document.querySelectorAll('.fa-star');
+
+	hvezdicky.forEach((hvezdicka, index) => {
+		if (index < pocet) {
+			hvezdicka.classList.remove('far');
+			hvezdicka.classList.add('fas');
+		} else {
+			hvezdicka.classList.remove('fas');
+			hvezdicka.classList.add('far');
+		}
+	});
+}
+
+const hvezdicky = document.querySelectorAll('.fa-star');
+
+hvezdicky.forEach((hvezdicka) => {
+	hvezdicka.addEventListener('click', () => {
+		const poradi = Number(hvezdicka.textContent);
+		zvyrazniHvezdicky(poradi);
+	});
+});
