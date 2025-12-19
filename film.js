@@ -225,3 +225,63 @@ hvezdicky.forEach((hvezdicka) => {
 		zvyrazniHvezdicky(poradi);
 	});
 });
+
+//PŘEHRÁVAČ
+
+const prehravac = document.querySelector('#prehravac');
+
+if (prehravac) {
+	const video = prehravac.querySelector('video');
+	const playButton = prehravac.querySelector('.play');
+	const pauseButton = prehravac.querySelector('.pause');
+	const currentTimeElement = prehravac.querySelector('.current-time');
+
+	playButton.addEventListener('click', () => {
+		video.play();
+	});
+
+	video.addEventListener('playing', () => {
+		prehravac.classList.add('playing');
+	});
+
+	pauseButton.addEventListener('click', () => {
+		video.pause();
+	});
+
+	video.addEventListener('pause', () => {
+		prehravac.classList.remove('playing');
+	});
+
+	video.addEventListener('timeupdate', () => {
+		const secondsTotal = Math.round(video.currentTime);
+
+		const minutes = Math.floor(secondsTotal / 60);
+		const seconds = secondsTotal % 60;
+
+		const secondsPadded = String(seconds).padStart(2, '0');
+		currentTimeElement.textContent = `${minutes}:${secondsPadded}`;
+	});
+}
+
+
+document.addEventListener('keydown', (event) => {
+	const prehravac = document.querySelector('#prehravac');
+	if (!prehravac) return;
+
+	const video = prehravac.querySelector('video');
+
+	if (
+		event.code === 'Space' &&
+		event.target.tagName !== 'TEXTAREA' &&
+		event.target.tagName !== 'INPUT' &&
+		event.target.tagName !== 'BUTTON'
+	) {
+		event.preventDefault();
+
+		if (video.paused) {
+			video.play();
+		} else {
+			video.pause();
+		}
+	}
+});
